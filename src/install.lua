@@ -33,13 +33,8 @@ h.writeLine("shell.run(" .. cli_quoted_path .. ", \"run\")")
 
 h.close()
 
--- Write command file
-h = fs.open("vein_miner", "w")
-
-h.writeLine("-- Run vein miner")
-h.writeLine("shell.run(" .. cli_quoted_path .. ", ...)")
-
-h.close()
+-- Set alias
+shell.setAlias("vein_miner", cli_path)
 
 -- Register tabcomplete
 shell.run(cli_path, "__tabcomplete")

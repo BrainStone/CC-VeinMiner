@@ -48,7 +48,6 @@ if action == subcommands.__tabcomplete then
 	)
 
 	-- Set tabcomplete for both files
-	shell.setCompletionFunction("vein_miner", complete)
 	shell.setCompletionFunction(cur_path, complete)
 elseif action == subcommands.update then
 	-- Update logic
