@@ -34,10 +34,12 @@ end
 
 if action == subcommands.__tabcomplete then
 	-- Hiding __tabcomplete
-	local visible_subcommands = table.unpack(subcommands, 1, table.maxn(subcommands))
-	visible_subcommands = table.filter(visible_subcommands, function(key)
-		return key ~= "__tabcomplete"
-	end)
+	local visible_subcommands = {}
+	for subcommand in pairs(subcommands) do
+		if subcommand ~= "__tabcomplete" then
+			table.insert(visible_subcommands, subcommand)
+		end
+	end
 
 	-- Command line completion
 	local completion = require "cc.shell.completion"
