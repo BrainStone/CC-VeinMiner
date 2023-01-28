@@ -11,7 +11,7 @@
 
 -- Path of this script
 local cli_path = shell.getRunningProgram()
-print("Current program (include.lua) " .. cur_path)
+print("Cli path (include.lua) " .. cli_path)
 local src_dir = fs.getDir(cli_path)
 local lib_dir = fs.combine(src_dir, "lib")
 local lib_dir_dots = lib_dir:gsub("/", ".") .. "."

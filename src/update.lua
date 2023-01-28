@@ -7,6 +7,7 @@
 
 -- Determine target_path
 local target_path = arg[1] or "vein_miner"
+print("Target path " .. target_path)
 
 -- Check if github is installed and if not install it
 if shell.resolveProgram("github") == nil then
