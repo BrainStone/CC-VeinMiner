@@ -41,3 +41,6 @@ h.writeLine("setfenv(f, getfenv())")
 h.writeLine("f(...)")
 
 h.close()
+
+-- Register tabcomplete
+shell.run(cli_path, "__tabcomplete")
