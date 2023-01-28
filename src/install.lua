@@ -15,9 +15,9 @@ local main_path = fs.combine(cur_dir, main_path_name)
 local h = fs.open("startup", "w")
 
 h.writeLine("-- Update repo first")
-h.writeLine("os.execute(\"git clone BrainStone/CC-VeinMiner " .. base_dir .. "\"")
+h.writeLine("shell.run(\"git\", \"clone\" \"BrainStone/CC-VeinMiner\" \"" .. base_dir .. "\")")
 h.writeLine("")
 h.writeLine("-- Run vein miner")
-h.writeLine("os.execute(\"" .. main_path .. "\"")
+h.writeLine("shell.run(\"" .. main_path .. "\")")
 
 h.close()
