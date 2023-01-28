@@ -12,5 +12,5 @@ using [Eric Wieser's GitHub downloader](https://github.com/eric-wieser/computerc
 pastebin run p8PJVxC4
 
 # Install the vein miner
-github clone BrainStone/CC-VeinMiner vein_miner
+github clone BrainStone/CC-VeinMiner vein_miner.rom
 ```

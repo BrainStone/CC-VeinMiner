@@ -6,7 +6,7 @@
 --- local cur_path = shell.getRunningProgram()
 --- local cur_dir = fs.getDir(cur_path)
 --- -- Include loading helper
---- dofile(fs.combine(cur_dir, "util/include.lua"))
+--- loadfile(fs.combine(cur_dir, "util/include.lua"), "t", getenv())()
 ---
 
 -- Path of this script
