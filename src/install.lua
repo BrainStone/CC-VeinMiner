@@ -4,10 +4,10 @@
 
 -- Path of this script
 local cur_path = debug.getinfo(1).source
-if path:sub(1,1) == "@" then
-	path = path:sub(2)
+if cur_path:sub(1,1) == "@" then
+	cur_path = cur_path:sub(2)
 end
-local directory = path:match("(.*/)")
+local directory = cur_path:match("(.*/)")
 
 -- Path to the main.lua file
 local main_path_name = "main.lua"
