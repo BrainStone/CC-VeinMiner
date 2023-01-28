@@ -34,7 +34,8 @@ end
 
 if action == subcommands.__tabcomplete then
 	-- Hiding __tabcomplete
-	local visible_subcommands = table.filter(table.keys(subcommands), function(key)
+	local visible_subcommands = table.unpack(subcommands, 1, table.maxn(subcommands))
+	visible_subcommands = table.filter(visible_subcommands, function(key)
 		return key ~= "__tabcomplete"
 	end)
 
