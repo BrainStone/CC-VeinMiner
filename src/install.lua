@@ -5,9 +5,19 @@
 -- Path of this script
 local cur_path = shell.getRunningProgram()
 local cur_dir = fs.getDir(cur_path)
+local base_dir = fs.getDir(cur_dir)
 
 -- Path to the main.lua file
 local main_path_name = "main.lua"
-local main_path = cur_dir .. main_path_name
+local main_path = fs.combine(cur_dir, main_path_name)
 
-print(main_path)
+-- Write startup file
+local h = fs.open("startup", "w")
+
+h.writeLine("-- Update repo first")
+h.writeLine("os.execute(\"git clone BrainStone/CC-VeinMiner " .. base_dir .. "\"")
+h.writeLine("")
+h.writeLine("-- Run vein miner")
+h.writeLine("os.execute(\"" .. main_path .. "\"")
+
+h.close()
