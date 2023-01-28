@@ -4,14 +4,14 @@
 
 loadLib("coordinate")
 
-home_postition = coordinate:new(0, 0, 0)
-home_facing = 0
-current_postion = coordinate:new(0, 0, 0)
-current_facing = 0
+local home_postition = coordinate:new(0, 0, 0)
+local home_facing = 0
+local current_postion = coordinate:new(0, 0, 0)
+local current_facing = 0
 
 --- Rotate the turtle left by a given count
 --- @param count number of times to rotate left, defaults to 1
-function turnLeft(count)
+local function turnLeft(count)
 	-- if count is not a number, default to 1
 	if type(count) ~= "number" then
 		count = 1
@@ -28,7 +28,7 @@ end
 
 --- Rotate the turtle right by a given count
 --- @param count number of times to rotate right, defaults to 1
-function turnRight(count)
+local function turnRight(count)
 	-- if count is not a number, default to 1
 	if type(count) ~= "number" then
 		count = 1
@@ -45,7 +45,7 @@ end
 
 --- Rotate the turtle to a specified facing
 --- @param target_facing the desired facing for the turtle, must be a number between 0 and 3
-function turnToFacing(target_facing)
+local function turnToFacing(target_facing)
 	-- if target_facing is not a number or is out of bounds, return
 	if type(target_facing) ~= "number" or target_facing < 0 or target_facing >= 4 then
 		error("target_facing must be a number between 0 and 3, got " .. tostring(target_facing))
