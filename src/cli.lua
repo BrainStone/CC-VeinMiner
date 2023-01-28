@@ -4,7 +4,6 @@
 
 -- Path of this script
 local cur_path = shell.getRunningProgram()
-print("Current program (cli.lua) " .. cur_path)
 local cur_dir = fs.getDir(cur_path)
 -- Include loading helper
 loadfile(fs.combine(cur_dir, "util/include.lua"), "t", getfenv())()
@@ -52,7 +51,8 @@ if action == subcommands.__tabcomplete then
 	shell.setCompletionFunction(cur_path, complete)
 elseif action == subcommands.update then
 	-- Update logic
-	runFile("update.lua")
+	-- Expects the 3rd parameter to be the path
+	runFile("update.lua", "", "", repo_dir)
 elseif action == subcommands.run then
 	-- Just call the main
 	runFile("main.lua")

@@ -10,11 +10,11 @@
 ---
 
 -- Path of this script
-local cli_path = shell.getRunningProgram()
-print("Cli path (include.lua) " .. cli_path)
-local src_dir = fs.getDir(cli_path)
-local lib_dir = fs.combine(src_dir, "lib")
-local lib_dir_dots = lib_dir:gsub("/", ".") .. "."
+cli_path = shell.getRunningProgram()
+src_dir = fs.getDir(cli_path)
+repo_dir = fs.getDir(src_dir)
+lib_dir = fs.combine(src_dir, "lib")
+lib_dir_dots = lib_dir:gsub("/", ".") .. "."
 
 --- Load a library
 function loadLib(lib)

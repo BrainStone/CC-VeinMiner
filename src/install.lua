@@ -4,7 +4,6 @@
 
 -- Path of this script
 local cur_path = shell.getRunningProgram()
-print("Current program (install.lua) " .. cur_path)
 local cur_dir = fs.getDir(cur_path)
 
 -- Path to the cli.lua file
