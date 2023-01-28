@@ -10,12 +10,11 @@ local target_path = arg[1] or "vein_miner"
 
 -- Check if github is installed and if not install it
 if shell.resolveProgram("github") == nil then
-	local h = io.popen("pastebin run p8PJVxC4", "r")
-	h:close()
+	shell.execute("pastebin", "run", "p8PJVxC4")
 end
 
 -- Download repo
-shell.run("github", "clone", "BrainStone/CC-VeinMiner", target_path)
+shell.execute("github", "clone", "BrainStone/CC-VeinMiner", target_path)
 
 -- Execute install script
-shell.run(fs.combine(target_path, "src/install.lua"))
+shell.execute(fs.combine(target_path, "src/install.lua"))

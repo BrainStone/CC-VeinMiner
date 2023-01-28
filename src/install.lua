@@ -26,10 +26,10 @@ end
 local h = fs.open("startup/50-vein_miner", "w")
 
 h.writeLine("-- Update vein miner first")
-h.writeLine("shell.run(" .. cli_quoted_path .. ", \"update\")")
+h.writeLine("shell.execute(" .. cli_quoted_path .. ", \"update\")")
 h.writeLine("")
 h.writeLine("-- Run vein miner")
-h.writeLine("shell.run(" .. cli_quoted_path .. ", \"run\")")
+h.writeLine("shell.execute(" .. cli_quoted_path .. ", \"run\")")
 
 h.close()
 
@@ -37,4 +37,4 @@ h.close()
 shell.setAlias("vein_miner", cli_path)
 
 -- Register tabcomplete
-shell.run(cli_path, "__tabcomplete")
+shell.execute(cli_path, "__tabcomplete")
