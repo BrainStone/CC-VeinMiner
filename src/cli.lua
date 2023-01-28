@@ -9,7 +9,7 @@ local cur_dir = fs.getDir(cur_path)
 loadfile(fs.combine(cur_dir, "util/include.lua"), "t", getfenv())()
 
 -- Parse parameters
-local selectedAction = select(1, ...)
+local selectedAction = arg[1]
 
 local subcommands = {
 	__tabcomplete = {
@@ -52,8 +52,9 @@ if action == subcommands.__tabcomplete then
 	shell.setCompletionFunction(cur_path, complete)
 elseif action == subcommands.update then
 	-- Update logic
+	runFile("update.lua")
 elseif action == subcommands.run then
-	-- Just call
+	-- Just call the main
 	runFile("main.lua")
 end
 

@@ -4,13 +4,10 @@ This ComputerCraft program will automatically mine entire veins of ore.
 
 ## Installation
 
-The easiest way to install this is by
-using [Eric Wieser's GitHub downloader](https://github.com/eric-wieser/computercraft-github):
+The easiest way to install this is by via wget.  
+Note it may install [Eric Wieser's GitHub downloader](https://github.com/eric-wieser/computercraft-github) if not
+already installed.
 
 ```shell
-# Install GitHub downloader
-pastebin run p8PJVxC4
-
-# Install the vein miner
-github clone BrainStone/CC-VeinMiner vein_miner.rom
+wget run https://raw.githubusercontent.com/BrainStone/CC-VeinMiner/master/src/update.lua [<folder>]
 ```
