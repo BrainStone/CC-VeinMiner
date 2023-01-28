@@ -10,9 +10,8 @@
 ---
 
 -- Path of this script
-local cur_path = shell.getRunningProgram()
-local util_dir = fs.getDir(cur_path)
-local src_dir = fs.getDir(util_dir)
+local cli_path = shell.getRunningProgram()
+local src_dir = fs.getDir(cli_path)
 local lib_dir = fs.combine(src_dir, "lib")
 local lib_dir_dots = lib_dir:gsub("/", ".") .. "."
 
