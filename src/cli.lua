@@ -4,6 +4,7 @@
 
 -- Path of this script
 local cur_path = shell.getRunningProgram()
+print("Current program (cli.lua) " .. cur_path)
 local cur_dir = fs.getDir(cur_path)
 -- Include loading helper
 loadfile(fs.combine(cur_dir, "util/include.lua"), "t", getfenv())()
