@@ -36,9 +36,8 @@ h.close()
 -- Write command file
 h = fs.open("vein_miner", "w")
 
-h.writeLine("f = loadfile(" .. cli_quoted_path .. ")")
-h.writeLine("setfenv(f, getfenv())")
-h.writeLine("f(...)")
+h.writeLine("-- Run vein miner")
+h.writeLine("shell.run(" .. cli_quoted_path .. ", ...)")
 
 h.close()
 
