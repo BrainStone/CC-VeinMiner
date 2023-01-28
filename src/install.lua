@@ -9,6 +9,7 @@ local cur_dir = fs.getDir(cur_path)
 -- Path to the cli.lua file
 local cli_path_name = "cli.lua"
 local cli_path = fs.combine(cur_dir, cli_path_name)
+local cli_quoted_path = string.format("%q", cli_path)
 
 -- Create startup dir and migrate potentially preexisting startup scripts
 if fs.exists("startup") then
@@ -25,17 +26,17 @@ end
 local h = fs.open("startup/50-vein_miner", "w")
 
 h.writeLine("-- Update vein miner first")
-h.writeLine("shell.run(\"" .. cli_path .. "\", \"update\")")
+h.writeLine("shell.run(" .. cli_quoted_path .. ", \"update\")")
 h.writeLine("")
 h.writeLine("-- Run vein miner")
-h.writeLine("shell.run(\"" .. cli_path .. "\", \"run\")")
+h.writeLine("shell.run(" .. cli_quoted_path .. ", \"run\")")
 
 h.close()
 
 -- Write command file
 h = fs.open("vein_miner", "w")
 
-h.writeLine("f = loadfile(\"" .. cli_path .. "\")")
+h.writeLine("f = loadfile(" .. cli_quoted_path .. ")")
 h.writeLine("setfenv(f, getfenv())")
 h.writeLine("f(...)")
 
