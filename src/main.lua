@@ -6,4 +6,4 @@ print("Hello World :D")
 
 loadLib("coordinate")
 
-print(coordnate)
+print(coordinate)
