@@ -12,14 +12,14 @@ local main_path_name = "main.lua"
 local main_path = fs.combine(cur_dir, main_path_name)
 
 -- Create startup dir and migrate potentially preexisting startup scripts
-if os.exists("startup") then
-	if not os.isDir("startup") then
-		os.rename("startup", "startup.old.temp")
-		os.makeDir("startup")
-		os.rename("startup.old.temp", "startup/01-orig_startup")
+if fs.exists("startup") then
+	if not fs.isDir("startup") then
+		fs.move("startup", "startup.old.temp")
+		fs.makeDir("startup")
+		fs.move("startup.old.temp", "startup/01-orig_startup")
 	end
 else
-	os.makeDir("startup")
+	fs.makeDir("startup")
 end
 
 -- Write startup file
