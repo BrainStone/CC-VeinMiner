@@ -38,7 +38,7 @@ function Coordinate:fromSetting(setting_basename)
 	return self:new(
 		settings.get(setting_basename .. ".x"),
 		settings.get(setting_basename .. ".y"),
-		settings.get(setting_basename .. ".y")
+		settings.get(setting_basename .. ".z")
 	)
 end
 
@@ -47,7 +47,7 @@ end
 function Coordinate:toSetting(setting_basename)
 	settings.set(setting_basename .. ".x", self.x)
 	settings.set(setting_basename .. ".y", self.y)
-	settings.set(setting_basename .. ".x", self.z)
+	settings.set(setting_basename .. ".z", self.z)
 end
 
 --- Calculates the manhattan distance between two coordinates
