@@ -25,7 +25,7 @@ function spiral_coordinates(n)
 		z = ((level2 * 2) - level_offset) * direction
 	elseif level_offset < (level2 * 4) then
 		x = ((level2 * 4) - level_offset)
-		z = -level2
+		z = -level2 * direction
 	else
 		x = 0
 		z = (level_offset - (level2 * 3)) * direction * -1
