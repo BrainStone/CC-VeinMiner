@@ -39,7 +39,12 @@ registerCleanup(saveCurrentPosition)
 
 -- Simple movement functions
 local turnLeft, turnRight, moveForward, moveBackward, moveUpward, moveDownward
+-- Smart movement functions
+local moveInX, moveInY, moveInZ
+-- Complex movement functions
+local turnToFacing, moveToPosition
 
+-- Simple movement functions
 --- Rotate the turtle left by a given count
 --- @param count number of times to rotate left, defaults to 1
 function turnLeft(count)
@@ -170,9 +175,57 @@ function moveDownward(count)
 	current_position.coordinate.y = current_position.coordinate.y - count
 end
 
--- Complex movement functions
-local turnToFacing, moveToPosition
+-- Smart movement functions
+--- Move the turtle in X direction
+--- @param count number of blocks to move in x direction. Supports both positive and negative numbers
+function moveInX(count)
+	-- if count is not a number, error
+	if type(count) ~= "number" then
+		error("count must be a number, got " .. tostring(count))
+	end
 
+	if count > 0 then
+		turnToFacing(0)
+		moveForward(count)
+	elseif count < 0 then
+		turnToFacing(2)
+		moveForward(-count)
+	end
+end
+
+--- Move the turtle in Y direction
+--- @param count number of blocks to move in y direction. Supports both positive and negative numbers
+function moveInX(count)
+	-- if count is not a number, error
+	if type(count) ~= "number" then
+		error("count must be a number, got " .. tostring(count))
+	end
+
+	if count > 0 then
+		moveUpward(count)
+	elseif count < 0 then
+		moveDownward(-count)
+	end
+end
+
+--- Move the turtle in Z direction
+--- @param count number of blocks to move in z direction. Supports both positive and negative numbers
+function moveInZ(count)
+	-- if count is not a number, error
+	if type(count) ~= "number" then
+		error("count must be a number, got " .. tostring(count))
+	end
+
+	if count > 0 then
+		turnToFacing(1)
+		moveForward(count)
+	elseif count < 0 then
+		turnToFacing(3)
+		moveForward(-count)
+	end
+end
+
+-- Complex movement functions
 --- Rotate the turtle to a specified facing
 --- @param target_facing number the desired facing for the turtle, must be a number between 0 and 3
 function turnToFacing(target_facing)
@@ -220,6 +273,10 @@ return {
 	moveBackward = moveBackward,
 	moveUpward = moveUpward,
 	moveDownward = moveDownward,
+
+	moveInX = moveInX,
+	moveInY = moveInY,
+	moveInZ = moveInZ,
 
 	turnToFacing = turnToFacing,
 	moveToPosition = moveToPosition,
