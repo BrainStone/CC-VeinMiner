@@ -262,11 +262,50 @@ function moveToRelative(target_position, target_facing)
 	local dy = target_position.y
 	local dz = target_position.z
 
-	-- First get to the correct height, then the correct z position and then the correct x position
-	-- This ensures it returns home safely
+	-- First get to the correct height...
 	moveInY(dy)
-	moveInZ(dz)
-	moveInX(dx)
+
+	-- ...then to the correct cardinal position with the optimal amount of turns
+	local first_axis
+
+	-- Determine optimal cardinal direction to move in first
+	if dx == 0 or dz == 0 then
+		-- Only one cardinal direction, so only one of these functions will do something, either would work
+		first_axis = "x"
+	elseif current_position.facing == 0 then
+		if dx > 0 then
+			first_axis = "x"
+		else
+			first_axis = "z"
+		end
+	elseif current_position.facing == 1 then
+		if dz > 0 then
+			first_axis = "z"
+		else
+			first_axis = "x"
+		end
+	elseif current_position.facing == 2 then
+		if dx > 0 then
+			first_axis = "z"
+		else
+			first_axis = "x"
+		end
+	elseif current_position.facing == 3 then
+		if dz > 0 then
+			first_axis = "x"
+		else
+			first_axis = "z"
+		end
+	end
+
+	-- Move turtle to the target position
+	if first_axis == "x" then
+		moveInX(dx)
+		moveInZ(dz)
+	elseif first_axis == "z" then
+		moveInZ(dz)
+		moveInX(dx)
+	end
 
 	if target_facing ~= nil then
 		turnToFacing(target_facing)
