@@ -9,26 +9,26 @@ loadLib("movement")
 --- @param n number The number to find the coordinates for
 --- @return table The coordinate for the given number
 function spiral_coordinates(n)
-	local x = 0
-	local z = 0
-	local i = 0
+	local level = math.floor((1 + math.sqrt(4 * n + 1)) / 4)
+	local level2 = level * 2
+	local level_offset = n - (level2 * level2 - level2)
+	local direction = ((level % 2) * 2) - 1
 
-	while i < n do
-		i = i + 2
+	local x, z
 
-		-- Move right
-		if x == z or (x < 0 and x == -z) then
-			x = x + 1
-			-- Move up
-		elseif x > z then
-			z = z + 1
-			-- Move left
-		elseif x < z then
-			x = x - 1
-			-- Move down
-		else
-			z = z - 1
-		end
+	-- Check which part of the spiral the current number is in based on the level offset
+	if level_offset < level2 then
+		x = level_offset
+		z = level2 * direction
+	elseif level_offset < (level2 * 3) then
+		x = level2
+		z = ((level2 * 2) - level_offset) * direction
+	elseif level_offset < (level2 * 4) then
+		x = ((level2 * 4) - level_offset)
+		z = -level2
+	else
+		x = 0
+		z = (level_offset - (level2 * 3)) * direction * -1
 	end
 
 	return coordinate:new(x, 0, z)
