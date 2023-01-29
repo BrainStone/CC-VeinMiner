@@ -99,5 +99,23 @@ function Coordinate:__sub(other)
 	return self:distance(other)
 end
 
+--- Compares two Coordinate objects for equality
+--- @param other table the other Coordinate object to compare
+--- @return boolean true if the two Coordinate objects are equal, false otherwise
+function Coordinate:__eq(other)
+	if type(other) ~= "table" or not other.x or not other.y or not other.z then
+		error("Invalid argument, expected a Coordinate object")
+	end
+
+	return self.x == other.x and self.y == other.y and self.z == other.z
+end
+
+--- Compares two Coordinate objects for inequality
+--- @param other table the other Coordinate object to compare
+--- @return boolean true if the two Coordinate objects are not equal, false otherwise
+function Coordinate:__ne(other)
+	return not self:__eq(other)
+end
+
 -- Return the class itself
 return Coordinate
