@@ -23,7 +23,7 @@ local current_position = {
 --- Saves the current position of the turtle.
 --- The position is saved as a set of x, y, z coordinates and a facing value.
 local function saveCurrentPosition()
-	current_position.coordinate.toSetting(setting_base .. "current_position.coordinate")
+	current_position.coordinate:toSetting(setting_base .. "current_position.coordinate")
 	settings.set(setting_base .. "current_position.facing", current_position.facing)
 end
 
