@@ -85,6 +85,13 @@ function Coordinate:offset(dx, dy, dz)
 	end
 end
 
+--- Overrides the - operator for Coordinate objects.
+--- This allows for inverting the x, y, and z values of a Coordinate object.
+--- @return table A new Coordinate object with inverted x, y, and z values
+function Coordinate:__unm()
+	return self:new(-self.x, -self.y, -self.z)
+end
+
 --- Overloads the + operator for Coordinate objects
 --- @param other number|table Coordinate object or a number to add
 --- @return table new Coordinate object
