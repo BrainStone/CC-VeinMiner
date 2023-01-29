@@ -168,7 +168,7 @@ function moveDownward(count)
 
 	-- move the turtle downward by the count specified
 	for _ = 1, count do
-		turtle.up()
+		turtle.down()
 	end
 
 	-- update the current position of the turtle
