@@ -40,7 +40,7 @@ end
 local cleanup_functions = {}
 
 --- Register a function to be called when the program exits
---- @param cleanup_function function to be called on program exit
+--- @param cleanup_function function to be called on program exit. It gets passed a boolean that indicates if the program exited successfully.
 function registerCleanup(cleanup_function)
 	if type(cleanup_function) ~= "function" then
 		error("cleanup_function must be a function , got " .. type(cleanup_function))
@@ -51,6 +51,9 @@ function registerCleanup(cleanup_function)
 end
 
 -- Execute program
+local success = true
+local error_message
+
 if action == subcommands.__tabcomplete then
 	-- Hiding __tabcomplete
 	local visible_subcommands = {}
@@ -71,16 +74,21 @@ if action == subcommands.__tabcomplete then
 elseif action == subcommands.update then
 	-- Update logic
 	-- Expects the 3rd parameter to be the path
-	runFile("update.lua", "", "", repo_dir)
+	success, error_message = runFile("update.lua", "", "", repo_dir)
 elseif action == subcommands.run then
 	-- Just call the main
-	runFile("main.lua")
+	success, error_message = runFile("main.lua")
 end
 
 -- Execute cleanup
 for _, cleanup_function in ipairs(cleanup_functions) do
-	cleanup_function()
+	cleanup_function(success)
 end
 
 -- Save settings
 settings.save(settings_file)
+
+-- Rethrow errors. We're catching them in the first place so we can guarantee that cleanup is called
+if not success then
+	error(error_message)
+end

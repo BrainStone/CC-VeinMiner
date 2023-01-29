@@ -26,11 +26,12 @@ function loadLib(lib)
 	_G[lib] = require("lib." .. lib)
 end
 
---- Run a file
---- @param file string the file to run
---- @param ... any additional arguments to pass to the file
+--- runFile function runs a given file in the src_dir and pass any additional arguments to the file
+--- @param file string the name of the file to run
+--- @param ... any any additional arguments to pass to the file
+--- @return boolean, any the first value returned by the pcall function is a boolean indicating whether the file ran without error and the rest of the values are the values returned by the file.
 function runFile(file, ...)
 	local f = loadfile(fs.combine(src_dir, file))
 	setfenv(f, getfenv())
-	f(...)
+	return pcall(f, ...)
 end
