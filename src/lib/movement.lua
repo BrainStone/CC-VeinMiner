@@ -320,10 +320,8 @@ end
 --- @param target_position table The target position as a Coordinate
 --- @param target_facing number Optional parameter for the facing to change to
 function moveToPosition(target_position, target_facing)
-	print(textutils.serialize(target_position:offset(-current_position.coordinate)))
-
 	-- `-coord1 + coord2` is correct because the `-` operator calculates distance
-	return moveToRelative(target_position:offset(-current_position.coordinate), target_facing)
+	return moveToRelative(-current_position.coordinate + target_position, target_facing)
 end
 
 --- First moves the turtle to the start position and then to the home position. This is to to protect the station
