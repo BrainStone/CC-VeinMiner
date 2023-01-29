@@ -35,7 +35,7 @@ end
 --- @param setting_basename string The base name of the settings
 --- @return table a new Coordinate object
 function Coordinate:fromSetting(setting_basename)
-	return self:new(
+	return Coordinate:new(
 		settings.get(setting_basename .. ".x"),
 		settings.get(setting_basename .. ".y"),
 		settings.get(setting_basename .. ".z")
@@ -79,7 +79,7 @@ function Coordinate:offset(dx, dy, dz)
 			dz = dx
 		end
 
-		return self:new(self.x + dx, self.y + dy, self.z + dz)
+		return Coordinate:new(self.x + dx, self.y + dy, self.z + dz)
 	else
 		error("Invalid argument, expected a number or a Coordinate object")
 	end
@@ -89,7 +89,7 @@ end
 --- This allows for inverting the x, y, and z values of a Coordinate object.
 --- @return table A new Coordinate object with inverted x, y, and z values
 function Coordinate:__unm()
-	return self:new(-self.x, -self.y, -self.z)
+	return Coordinate:new(-self.x, -self.y, -self.z)
 end
 
 --- Overloads the + operator for Coordinate objects
