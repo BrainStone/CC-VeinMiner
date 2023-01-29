@@ -25,6 +25,17 @@ local current_position = {
 	facing = settings.get(setting_base .. "current_postion.facing"),
 }
 
+-- Save config on exit
+local function saveCurrentPosition()
+	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
+	settings.set(setting_base .. "current_postion.coordinate.y", current_position.coordinate.y)
+	settings.set(setting_base .. "current_postion.coordinate.z", current_position.coordinate.z)
+	settings.set(setting_base .. "current_postion.facing", current_position.facing)
+end
+
+registerCleanup(saveCurrentPosition)
+
+-- Movement function
 --- Rotate the turtle left by a given count
 --- @param count number of times to rotate left, defaults to 1
 local function turnLeft(count)
@@ -84,15 +95,6 @@ local function turnToFacing(target_facing)
 		turnLeft()
 	end
 end
-
-local function onTerminate()
-	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
-	settings.set(setting_base .. "current_postion.coordinate.y", current_position.coordinate.y)
-	settings.set(setting_base .. "current_postion.coordinate.z", current_position.coordinate.z)
-	settings.set(setting_base .. "current_postion.facing", current_position.facing)
-end
-
-registerCleanup(onTerminate)
 
 -- Exports
 return {
