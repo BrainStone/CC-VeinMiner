@@ -95,7 +95,9 @@ function moveForward(count)
 
 	-- move the turtle forward by the count specified
 	for _ = 1, count do
-		turtle.forward()
+		while not turtle.forward() do
+			turtle.dig()
+		end
 	end
 
 	-- update the current position of the turtle
@@ -122,7 +124,11 @@ function moveBackward(count)
 
 	-- move the turtle backward by the count specified
 	for _ = 1, count do
-		turtle.back()
+		while not turtle.back() do
+			turnRight(2)
+			turtle.dig()
+			turnRight(2)
+		end
 	end
 
 	-- update the current position of the turtle
@@ -149,7 +155,9 @@ function moveUpward(count)
 
 	-- move the turtle upward by the count specified
 	for _ = 1, count do
-		turtle.up()
+		while not turtle.up() do
+			turtle.digUp()
+		end
 	end
 
 	-- update the current position of the turtle
@@ -168,7 +176,9 @@ function moveDownward(count)
 
 	-- move the turtle downward by the count specified
 	for _ = 1, count do
-		turtle.down()
+		while not turtle.down() do
+			turtle.digDown()
+		end
 	end
 
 	-- update the current position of the turtle
