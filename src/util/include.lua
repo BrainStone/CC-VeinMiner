@@ -34,7 +34,13 @@ end
 --- @return string The traceback of any error that occurred, if the file did not run successfully
 function runFile(file, ...)
 	-- Load file as a function and set up the env
-	local file_func = loadfile(fs.combine(src_dir, file))
+	local file_path = fs.combine(src_dir, file)
+	local file_func, err = loadfile(file_path)
+
+	if file_func == nil then
+		return false, debug.traceback(), "Could not load file " .. file_path .. ": " .. err
+	end
+
 	local args = table.pack(...)
 	setfenv(file_func, getfenv())
 
