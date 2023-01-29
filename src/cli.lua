@@ -43,7 +43,7 @@ function registerCleanup(cleanup_function)
 	end
 
 	-- Insert the provided function into the array of cleanup functions
-	cleanup_functions.insert(#cleanup_functions, cleanup_function)
+	table.insert(cleanup_functions, cleanup_function)
 end
 
 -- Execute program
