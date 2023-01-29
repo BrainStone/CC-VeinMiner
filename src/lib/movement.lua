@@ -34,7 +34,7 @@ local turnLeft, turnRight, moveForward, moveBackward, moveUpward, moveDownward
 -- Smart movement functions
 local moveInX, moveInY, moveInZ
 -- Complex movement functions
-local turnToFacing, moveToPosition, moveHome
+local turnToFacing, moveToRelative, moveToPosition, moveHome
 
 -- Simple movement functions
 --- Rotate the turtle left by a given count
@@ -254,13 +254,13 @@ function turnToFacing(target_facing)
 	end
 end
 
---- Moves the turtle to the target position, and optionally changes the facing
---- @param target_position table The target position as a Coordinate
+--- Moves the turtle to the relative target position, and optionally changes the facing
+--- @param target_position table The relative target position as a Coordinate
 --- @param target_facing number Optional parameter for the facing to change to
-function moveToPosition(target_position, target_facing)
-	local dx = target_position.x - current_position.coordinate.x
-	local dy = target_position.y - current_position.coordinate.y
-	local dz = target_position.z - current_position.coordinate.z
+function moveToRelative(target_position, target_facing)
+	local dx = target_position.x
+	local dy = target_position.y
+	local dz = target_position.z
 
 	-- First get to the correct height, then the correct z position and then the correct x position
 	-- This ensures it returns home safely
@@ -271,6 +271,14 @@ function moveToPosition(target_position, target_facing)
 	if target_facing ~= nil then
 		turnToFacing(target_facing)
 	end
+end
+
+--- Moves the turtle to the target position, and optionally changes the facing
+--- @param target_position table The target position as a Coordinate
+--- @param target_facing number Optional parameter for the facing to change to
+function moveToPosition(target_position, target_facing)
+	-- `coord1 + -coord2` is correct because the `-` operator calculates distance
+	return moveToRelative(target_position + -current_position.coordinate, target_facing)
 end
 
 --- Moves the turtle to the home position, as defined by the global home_position variable
@@ -298,6 +306,7 @@ return {
 	moveInZ = moveInZ,
 
 	turnToFacing = turnToFacing,
+	moveToRelative = moveToRelative,
 	moveToPosition = moveToPosition,
 	moveHome = moveHome,
 }
