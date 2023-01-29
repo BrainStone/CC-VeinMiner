@@ -4,13 +4,25 @@
 
 loadLib("coordinate")
 
+-- Register settings used in this module
+local setting_base = "vein_miner.movement."
+setting.define(setting_base .. "current_postion.coordinate.x", { default = 0, type = "number" })
+setting.define(setting_base .. "current_postion.coordinate.y", { default = 0, type = "number" })
+setting.define(setting_base .. "current_postion.coordinate.z", { default = 0, type = "number" })
+setting.define(setting_base .. "current_postion.facing", { default = 0, type = "number" })
+
+-- State variables
 local home_position = {
 	coordinate = coordinate:new(0, 0, 0),
 	facing = 0,
 }
 local current_position = {
-	coordinate = coordinate:new(0, 0, 0),
-	facing = 0,
+	coordinate = coordinate:new(
+		setting.get(setting_base .. "current_postion.coordinate.x"),
+		setting.get(setting_base .. "current_postion.coordinate.y"),
+		setting.get(setting_base .. "current_postion.coordinate.z")
+	),
+	facing = setting.get(setting_base .. "current_postion.facing"),
 }
 
 --- Rotate the turtle left by a given count
@@ -74,7 +86,10 @@ local function turnToFacing(target_facing)
 end
 
 local function onTerminate()
-	print("Called onTerminate! :D")
+	setting.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
+	setting.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.y)
+	setting.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.z)
+	setting.set(setting_base .. "current_postion.facing", current_position.facing)
 end
 
 registerCleanup(onTerminate)
