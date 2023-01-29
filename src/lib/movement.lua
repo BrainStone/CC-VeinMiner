@@ -321,6 +321,9 @@ end
 --- @param target_facing number Optional parameter for the facing to change to
 function moveToPosition(target_position, target_facing)
 	print(textutils.serialize(target_position))
+	print(textutils.serialize(-current_position.coordinate))
+	sleep(2)
+	print(textutils.serialize(target_position + (-current_position.coordinate)))
 
 	-- `coord1 + -coord2` is correct because the `-` operator calculates distance
 	return moveToRelative(target_position + -current_position.coordinate, target_facing)
@@ -332,7 +335,7 @@ function moveHome()
 	if current_position.coordinate.x < 0 and (current_position.coordinate.z >= -2 and current_position.coordinate.z <= 2) then
 		-- Move turtle away from station along the z-axis
 		local target_z = current_position.coordinate.z < 0 and 3 or -3
-		moveToRelative(Coordinate.new(0, 0, target_z - current_position.coordinate.z))
+		moveToRelative(coordinate:new(0, 0, target_z - current_position.coordinate.z))
 	end
 
 	-- Move to position properly
