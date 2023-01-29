@@ -39,4 +39,4 @@ for n = 0, 100 do
 	turtle.digDown()
 end
 
-moveHome()
+movement.moveHome()
