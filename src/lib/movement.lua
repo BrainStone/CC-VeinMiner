@@ -77,7 +77,7 @@ local function onTerminate()
 	print("Called onTerminate! :D")
 end
 
-event.listen("terminate", onTerminate)
+registerCleanup(onTerminate)
 
 -- Exports
 return {

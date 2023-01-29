@@ -32,6 +32,21 @@ if not action then
 	return
 end
 
+-- Provide cleanup functions
+local cleanup_functions = {}
+
+--- Register a function to be called when the program exits
+--- @param cleanup_function function to be called on program exit
+function registerCleanup(cleanup_function)
+	if type(cleanup_function) ~= "function" then
+		error("cleanup_function must be a function , got " .. type(cleanup_function))
+	end
+
+	-- Insert the provided function into the array of cleanup functions
+	cleanup_functions.insert(#cleanup_functions, cleanup_function)
+end
+
+-- Execute program
 if action == subcommands.__tabcomplete then
 	-- Hiding __tabcomplete
 	local visible_subcommands = {}
@@ -58,3 +73,7 @@ elseif action == subcommands.run then
 	runFile("main.lua")
 end
 
+-- Execute cleanup
+for _, cleanup_function in ipairs(cleanup_functions) do
+	cleanup_function()
+end
