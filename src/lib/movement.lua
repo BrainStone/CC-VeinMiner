@@ -195,7 +195,7 @@ end
 
 --- Move the turtle in Y direction
 --- @param count number of blocks to move in y direction. Supports both positive and negative numbers
-function moveInX(count)
+function moveInY(count)
 	-- if count is not a number, error
 	if type(count) ~= "number" then
 		error("count must be a number, got " .. tostring(count))
