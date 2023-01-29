@@ -260,9 +260,11 @@ function moveToPosition(target_position, target_facing)
 	local dy = target_position.y - current_position.coordinate.y
 	local dz = target_position.z - current_position.coordinate.z
 
+	-- First get to the correct height, then the correct z position and then the correct x position
+	-- This ensures it returns home safely
 	moveInY(dy)
-	moveInX(dx)
 	moveInZ(dz)
+	moveInX(dx)
 
 	if target_facing ~= nil then
 		turnToFacing(target_facing)
