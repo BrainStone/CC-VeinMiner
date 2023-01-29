@@ -26,6 +26,8 @@ local current_position = {
 }
 
 -- Save config on exit
+--- Saves the current position of the turtle.
+--- The position is saved as a set of x, y, z coordinates and a facing value.
 local function saveCurrentPosition()
 	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
 	settings.set(setting_base .. "current_postion.coordinate.y", current_position.coordinate.y)
@@ -35,13 +37,17 @@ end
 
 registerCleanup(saveCurrentPosition)
 
--- Movement function
+-- Simple movement functions
+local turnLeft, turnRight, moveForward, moveBackward, moveUpward, moveDownward
+
 --- Rotate the turtle left by a given count
 --- @param count number of times to rotate left, defaults to 1
-local function turnLeft(count)
-	-- if count is not a number, default to 1
+function turnLeft(count)
+	-- if count is not a number (or not given), default to 1
 	if type(count) ~= "number" then
 		count = 1
+	elseif count < 0 then
+		return turnRight(-count)
 	end
 
 	-- rotate the turtle left by the count specified
@@ -55,10 +61,12 @@ end
 
 --- Rotate the turtle right by a given count
 --- @param count number of times to rotate right, defaults to 1
-local function turnRight(count)
-	-- if count is not a number, default to 1
+function turnRight(count)
+	-- if count is not a number (or not given), default to 1
 	if type(count) ~= "number" then
 		count = 1
+	elseif count < 0 then
+		return turnLeft(-count)
 	end
 
 	-- rotate the turtle right by the count specified
@@ -70,9 +78,104 @@ local function turnRight(count)
 	current_position.facing = (current_position.facing + count) % 4
 end
 
+--- Move the turtle forward by a given count
+--- @param count number of blocks to move forward, defaults to 1
+function moveForward(count)
+	-- if count is not a number (or not given), default to 1
+	if type(count) ~= "number" then
+		count = 1
+	elseif count < 0 then
+		return moveBackward(-count)
+	end
+
+	-- move the turtle forward by the count specified
+	for _ = 1, count do
+		turtle.forward()
+	end
+
+	-- update the current postion of the turtle
+	if current_position.facing == 0 then
+		current_position.coordinate.x = current_position.coordinate.x + count
+	elseif current_position.facing == 1 then
+		current_position.coordinate.z = current_position.coordinate.z + count
+	elseif current_position.facing == 2 then
+		current_position.coordinate.x = current_position.coordinate.x - count
+	elseif current_position.facing == 3 then
+		current_position.coordinate.z = current_position.coordinate.z - count
+	end
+end
+
+--- Move the turtle backward by a given count
+--- @param count number of blocks to move backwards, defaults to 1
+function moveBackward(count)
+	-- if count is not a number (or not given), default to 1
+	if type(count) ~= "number" then
+		count = 1
+	elseif count < 0 then
+		return moveForward(-count)
+	end
+
+	-- move the turtle backward by the count specified
+	for _ = 1, count do
+		turtle.back()
+	end
+
+	-- update the current postion of the turtle
+	if current_position.facing == 0 then
+		current_position.coordinate.x = current_position.coordinate.x - count
+	elseif current_position.facing == 1 then
+		current_position.coordinate.z = current_position.coordinate.z - count
+	elseif current_position.facing == 2 then
+		current_position.coordinate.z = current_position.coordinate.x + count
+	elseif current_position.facing == 3 then
+		current_position.coordinate.z = current_position.coordinate.z + count
+	end
+end
+
+--- Move the turtle upward by a given count
+--- @param count number of blocks to move upward, defaults to 1
+function moveUpward(count)
+	-- if count is not a number (or not given), default to 1
+	if type(count) ~= "number" then
+		count = 1
+	elseif count < 0 then
+		return moveDownward(-count)
+	end
+
+	-- move the turtle upward by the count specified
+	for _ = 1, count do
+		turtle.up()
+	end
+
+	-- update the current postion of the turtle
+	current_position.coordinate.y = current_position.coordinate.y + count
+end
+
+--- Move the turtle downward by a given count
+--- @param count number of blocks to move downward, defaults to 1
+function moveDownward(count)
+	-- if count is not a number (or not given), default to 1
+	if type(count) ~= "number" then
+		count = 1
+	elseif count < 0 then
+		return moveUpward(-count)
+	end
+
+	-- move the turtle downward by the count specified
+	for _ = 1, count do
+		turtle.up()
+	end
+
+	-- update the current postion of the turtle
+	current_position.coordinate.y = current_position.coordinate.y - count
+end
+
+-- Complex movement functions
+local turnToFacing, moveToPosition
+
 --- Rotate the turtle to a specified facing
 --- @param target_facing number the desired facing for the turtle, must be a number between 0 and 3
-local function turnToFacing(target_facing)
+function turnToFacing(target_facing)
 	-- if target_facing is not a number or is out of bounds, return
 	if type(target_facing) ~= "number" or target_facing < 0 or target_facing >= 4 then
 		error("target_facing must be a number between 0 and 3, got " .. tostring(target_facing))
@@ -96,6 +199,14 @@ local function turnToFacing(target_facing)
 	end
 end
 
+function moveToPosition(target_postion, target_facing)
+	-- TODO move code
+
+	if target_facing ~= nil then
+		turnToFacing(target_facing)
+	end
+end
+
 -- Exports
 return {
 	-- Variables
@@ -105,5 +216,11 @@ return {
 	-- Functions
 	turnLeft = turnLeft,
 	turnRight = turnRight,
+	moveForward = moveForward,
+	moveBackward = moveBackward,
+	moveUpward = moveUpward,
+	moveDownward = moveDownward,
+
 	turnToFacing = turnToFacing,
+	moveToPosition = moveToPosition,
 }
