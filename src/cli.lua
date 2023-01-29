@@ -8,6 +8,10 @@ local cur_dir = fs.getDir(cur_path)
 -- Include loading helper
 loadfile(fs.combine(cur_dir, "util/include.lua"), "t", getfenv())()
 
+-- Load settings
+local settings_file = fs.combine(repo_dir, ".settings")
+settings.load(settings_file)
+
 -- Parse parameters
 local selectedAction = arg[1]
 
@@ -77,3 +81,6 @@ end
 for _, cleanup_function in ipairs(cleanup_functions) do
 	cleanup_function()
 end
+
+-- Save settings
+settings.save(settings_file)

@@ -21,14 +21,14 @@ repo_dir = fs.getDir(src_dir)
 lib_dir = fs.combine(src_dir, "lib")
 
 --- Load a library
----- @param lib the library to load
+---- @param lib string the library to load
 function loadLib(lib)
 	_G[lib] = require("lib." .. lib)
 end
 
 --- Run a file
---- @param file the file to run
---- @param ... additional arguments to pass to the file
+--- @param file string the file to run
+--- @param ... any additional arguments to pass to the file
 function runFile(file, ...)
 	local f = loadfile(fs.combine(src_dir, file))
 	setfenv(f, getfenv())
