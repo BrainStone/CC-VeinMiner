@@ -326,7 +326,24 @@ end
 
 --- First moves the turtle to the start position and then to the home position. This is to to protect the station
 function moveHome()
-	moveToPosition(start_position.coordinate)
+	-- Check if turtle is at or near the station
+	if current_position.coordinate.x < 0 and (current_position.coordinate.z >= -2 and current_position.coordinate.z <= 2) then
+		-- Move turtle away from station along the z-axis
+		local target_z = current_position.coordinate.z < 0 and 3 or -3
+		moveToRelative(Coordinate.new(0, 0, target_z - current_position.coordinate.z))
+	end
+
+	-- Move to position properly
+	if
+	(
+		current_position.coordinate.x < home_position.coordinate.x or
+			current_position.coordinate.x >= start_position.coordinate.x
+	) or
+		current_position.coordinate.y ~= 0 or
+		current_position.coordinate.z ~= 0 then
+		-- If we're at home or in between home and start position, don't go to the start position
+		moveToPosition(start_position.coordinate)
+	end
 	moveToPosition(home_position.coordinate, home_position.facing)
 end
 
