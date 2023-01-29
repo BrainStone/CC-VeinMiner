@@ -6,10 +6,10 @@ loadLib("coordinate")
 
 -- Register settings used in this module
 local setting_base = "vein_miner.movement."
-settings.define(setting_base .. "current_postion.coordinate.x", { default = 0, type = "number" })
-settings.define(setting_base .. "current_postion.coordinate.y", { default = 0, type = "number" })
-settings.define(setting_base .. "current_postion.coordinate.z", { default = 0, type = "number" })
-settings.define(setting_base .. "current_postion.facing", { default = 0, type = "number" })
+settings.define(setting_base .. "current_position.coordinate.x", { default = 0, type = "number" })
+settings.define(setting_base .. "current_position.coordinate.y", { default = 0, type = "number" })
+settings.define(setting_base .. "current_position.coordinate.z", { default = 0, type = "number" })
+settings.define(setting_base .. "current_position.facing", { default = 0, type = "number" })
 
 -- State variables
 local home_position = {
@@ -18,21 +18,21 @@ local home_position = {
 }
 local current_position = {
 	coordinate = coordinate:new(
-		settings.get(setting_base .. "current_postion.coordinate.x"),
-		settings.get(setting_base .. "current_postion.coordinate.y"),
-		settings.get(setting_base .. "current_postion.coordinate.z")
+		settings.get(setting_base .. "current_position.coordinate.x"),
+		settings.get(setting_base .. "current_position.coordinate.y"),
+		settings.get(setting_base .. "current_position.coordinate.z")
 	),
-	facing = settings.get(setting_base .. "current_postion.facing"),
+	facing = settings.get(setting_base .. "current_position.facing"),
 }
 
 -- Save config on exit
 --- Saves the current position of the turtle.
 --- The position is saved as a set of x, y, z coordinates and a facing value.
 local function saveCurrentPosition()
-	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
-	settings.set(setting_base .. "current_postion.coordinate.y", current_position.coordinate.y)
-	settings.set(setting_base .. "current_postion.coordinate.z", current_position.coordinate.z)
-	settings.set(setting_base .. "current_postion.facing", current_position.facing)
+	settings.set(setting_base .. "current_position.coordinate.x", current_position.coordinate.x)
+	settings.set(setting_base .. "current_position.coordinate.y", current_position.coordinate.y)
+	settings.set(setting_base .. "current_position.coordinate.z", current_position.coordinate.z)
+	settings.set(setting_base .. "current_position.facing", current_position.facing)
 end
 
 registerCleanup(saveCurrentPosition)
@@ -98,7 +98,7 @@ function moveForward(count)
 		turtle.forward()
 	end
 
-	-- update the current postion of the turtle
+	-- update the current position of the turtle
 	if current_position.facing == 0 then
 		current_position.coordinate.x = current_position.coordinate.x + count
 	elseif current_position.facing == 1 then
@@ -125,7 +125,7 @@ function moveBackward(count)
 		turtle.back()
 	end
 
-	-- update the current postion of the turtle
+	-- update the current position of the turtle
 	if current_position.facing == 0 then
 		current_position.coordinate.x = current_position.coordinate.x - count
 	elseif current_position.facing == 1 then
@@ -152,7 +152,7 @@ function moveUpward(count)
 		turtle.up()
 	end
 
-	-- update the current postion of the turtle
+	-- update the current position of the turtle
 	current_position.coordinate.y = current_position.coordinate.y + count
 end
 
@@ -171,7 +171,7 @@ function moveDownward(count)
 		turtle.up()
 	end
 
-	-- update the current postion of the turtle
+	-- update the current position of the turtle
 	current_position.coordinate.y = current_position.coordinate.y - count
 end
 
@@ -252,8 +252,8 @@ function turnToFacing(target_facing)
 	end
 end
 
-function moveToPosition(target_postion, target_facing)
 	-- TODO move code
+function moveToPosition(target_position, target_facing)
 
 	if target_facing ~= nil then
 		turnToFacing(target_facing)
