@@ -42,7 +42,7 @@ local turnLeft, turnRight, moveForward, moveBackward, moveUpward, moveDownward
 -- Smart movement functions
 local moveInX, moveInY, moveInZ
 -- Complex movement functions
-local turnToFacing, moveToPosition
+local turnToFacing, moveToPosition, moveHome
 
 -- Simple movement functions
 --- Rotate the turtle left by a given count
@@ -252,13 +252,28 @@ function turnToFacing(target_facing)
 	end
 end
 
-	-- TODO move code
+--- Moves the turtle to the target position, and optionally changes the facing
+--- @param target_position table The target position as a Coordinate
+--- @param target_facing number Optional parameter for the facing to change to
 function moveToPosition(target_position, target_facing)
+	local dx = target_position.x - current_position.coordinate.x
+	local dy = target_position.y - current_position.coordinate.y
+	local dz = target_position.z - current_position.coordinate.z
+
+	moveInY(dy)
+	moveInX(dx)
+	moveInZ(dz)
 
 	if target_facing ~= nil then
 		turnToFacing(target_facing)
 	end
 end
+
+--- Moves the turtle to the home position, as defined by the global home_position variable
+function moveHome()
+	moveToPosition(home_position.coordinate, home_position.facing)
+end
+
 
 -- Exports
 return {
@@ -280,4 +295,5 @@ return {
 
 	turnToFacing = turnToFacing,
 	moveToPosition = moveToPosition,
+	moveHome = moveHome,
 }
