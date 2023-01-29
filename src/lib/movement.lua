@@ -326,7 +326,7 @@ end
 
 --- First moves the turtle to the start position and then to the home position. This is to to protect the station
 function moveHome()
-	moveToPosition(start_position)
+	moveToPosition(start_position.coordinate)
 	moveToPosition(home_position.coordinate, home_position.facing)
 end
 
