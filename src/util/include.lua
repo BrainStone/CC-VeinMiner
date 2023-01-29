@@ -35,6 +35,7 @@ end
 function runFile(file, ...)
 	-- Load file as a function and set up the env
 	local file_func = loadfile(fs.combine(src_dir, file))
+	local args = table.pack(...)
 	setfenv(file_func, getfenv())
 
 	-- Capture the traceback in case of error
@@ -43,7 +44,7 @@ function runFile(file, ...)
 	-- Run the file function with pxcall, capturing any errors and the traceback
 	local call_result = table.pack(pxcall(
 		function()
-			file_func(...)
+			file_func(table.unpack(args))
 		end,
 		function(err)
 			traceback = debug.traceback()
