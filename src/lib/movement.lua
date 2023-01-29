@@ -73,6 +73,12 @@ local function turnToFacing(target_facing)
 	end
 end
 
+local function onTerminate()
+	print("Called onTerminate! :D")
+end
+
+event.listen("terminate", onTerminate)
+
 -- Exports
 return {
 	-- Variables
