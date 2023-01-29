@@ -9,27 +9,26 @@ loadLib("movement")
 --- @param n number The number to find the coordinates for
 --- @return table The coordinate for the given number
 function spiral_coordinates(n)
-	local x, z = 0, 0
-	local direction = 0
+	local x = 0
+	local z = 0
+	local i = 0
 
-	if n % 2 == 0 then
-		x = n / 2
-		z = -n / 2
-	else
-		x = (n + 1) / 2
-		z = -(n - 1) / 2
-	end
+	while i < n do
+		i = i + 2
 
-	if n % 4 == 1 then
-		direction = 1
-	elseif n % 4 == 3 then
-		direction = -1
-	end
-
-	if direction == 1 then
-		x, z = z, x
-	elseif direction == -1 then
-		x, z = -z, -x
+		-- Move right
+		if x == z or (x < 0 and x == -z) then
+			x = x + 1
+			-- Move up
+		elseif x > z then
+			z = z + 1
+			-- Move left
+		elseif x < z then
+			x = x - 1
+			-- Move down
+		else
+			z = z - 1
+		end
 	end
 
 	return coordinate:new(x, 0, z)
