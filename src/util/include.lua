@@ -26,12 +26,37 @@ function loadLib(lib)
 	_G[lib] = require("lib." .. lib)
 end
 
---- runFile function runs a given file in the src_dir and pass any additional arguments to the file
---- @param file string the name of the file to run
---- @param ... any any additional arguments to pass to the file
---- @return boolean, any the first value returned by the pcall function is a boolean indicating whether the file ran without error and the rest of the values are the values returned by the file.
+--- Runs the given file with the given arguments and returns the results.
+--- @param file string The name of the file to run
+--- @param ... any Any additional arguments to pass to the file when running it
+--- @return boolean Whether or not the file ran successfully
+--- @return any The return values of the file, if it ran successfully
+--- @return string The traceback of any error that occurred, if the file did not run successfully
 function runFile(file, ...)
-	local f = loadfile(fs.combine(src_dir, file))
-	setfenv(f, getfenv())
-	return pcall(f, ...)
+	-- Load file as a function and set up the env
+	local file_func = loadfile(fs.combine(src_dir, file))
+	setfenv(file_func, getfenv())
+
+	-- Capture the traceback in case of error
+	local traceback
+
+	-- Run the file function with pxcall, capturing any errors and the traceback
+	local call_result = table.pack(pxcall(
+		function()
+			file_func(...)
+		end,
+		function(err)
+			traceback = debug.traceback()
+
+			return err
+		end
+	))
+
+	-- Unpack the call result if successful, otherwise return error and traceback
+	if call_result[1] then
+		return table.unpack(call_result)
+	else
+		return call_result[1], traceback, call_result[2]
+	end
 end
+

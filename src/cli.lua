@@ -52,6 +52,7 @@ end
 
 -- Execute program
 local success = true
+local traceback
 local error_message
 
 if action == subcommands.__tabcomplete then
@@ -74,10 +75,10 @@ if action == subcommands.__tabcomplete then
 elseif action == subcommands.update then
 	-- Update logic
 	-- Expects the 3rd parameter to be the path
-	success, error_message = runFile("update.lua", "", "", repo_dir)
+	success, traceback, error_message = runFile("update.lua", "", "", repo_dir)
 elseif action == subcommands.run then
 	-- Just call the main
-	success, error_message = runFile("main.lua")
+	success, traceback, error_message = runFile("main.lua")
 end
 
 -- Execute cleanup
@@ -90,5 +91,6 @@ settings.save(settings_file)
 
 -- Rethrow errors. We're catching them in the first place so we can guarantee that cleanup is called
 if not success then
-	error(error_message)
+	printError(traceback)
+	printError(error_message)
 end
