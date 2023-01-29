@@ -41,8 +41,8 @@ function runFile(file, ...)
 	-- Capture the traceback in case of error
 	local traceback
 
-	-- Run the file function with pxcall, capturing any errors and the traceback
-	local call_result = table.pack(pxcall(
+	-- Run the file function with xpcall, capturing any errors and the traceback
+	local call_result = table.pack(xpcall(
 		function()
 			file_func(table.unpack(args))
 		end,
