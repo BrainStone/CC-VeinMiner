@@ -14,6 +14,10 @@ local home_position = {
 	coordinate = coordinate:new(0, 0, 0),
 	facing = 0,
 }
+local start_position = {
+	coordinate = coordinate:new(2, 0, 0),
+	facing = 0,
+}
 local current_position = {
 	coordinate = coordinate:fromSetting(setting_base .. "current_position.coordinate"),
 	facing = settings.get(setting_base .. "current_position.facing"),
@@ -320,8 +324,9 @@ function moveToPosition(target_position, target_facing)
 	return moveToRelative(target_position + -current_position.coordinate, target_facing)
 end
 
---- Moves the turtle to the home position, as defined by the global home_position variable
+--- First moves the turtle to the start position and then to the home position. This is to to protect the station
 function moveHome()
+	moveToPosition(start_position)
 	moveToPosition(home_position.coordinate, home_position.facing)
 end
 
@@ -330,6 +335,7 @@ end
 return {
 	-- Variables
 	home_position = home_position,
+	start_position = start_position,
 	current_position = current_position,
 
 	-- Functions
