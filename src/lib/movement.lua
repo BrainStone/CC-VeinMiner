@@ -4,10 +4,14 @@
 
 loadLib("coordinate")
 
-local home_postition = coordinate:new(0, 0, 0)
-local home_facing = 0
-local current_postion = coordinate:new(0, 0, 0)
-local current_facing = 0
+local home_position = {
+	coordinate = coordinate:new(0, 0, 0),
+	facing = 0,
+}
+local current_position = {
+	coordinate = coordinate:new(0, 0, 0),
+	facing = 0,
+}
 
 --- Rotate the turtle left by a given count
 --- @param count number of times to rotate left, defaults to 1
@@ -23,7 +27,7 @@ local function turnLeft(count)
 	end
 
 	-- update the current facing of the turtle
-	current_facing = (current_facing - count) % 4
+	current_position.facing = (current_position.facing - count) % 4
 end
 
 --- Rotate the turtle right by a given count
@@ -40,11 +44,11 @@ local function turnRight(count)
 	end
 
 	-- update the current facing of the turtle
-	current_facing = (current_facing + count) % 4
+	current_position.facing = (current_position.facing + count) % 4
 end
 
 --- Rotate the turtle to a specified facing
---- @param target_facing the desired facing for the turtle, must be a number between 0 and 3
+--- @param target_facing number the desired facing for the turtle, must be a number between 0 and 3
 local function turnToFacing(target_facing)
 	-- if target_facing is not a number or is out of bounds, return
 	if type(target_facing) ~= "number" or target_facing < 0 or target_facing >= 4 then
@@ -55,7 +59,7 @@ local function turnToFacing(target_facing)
 	-- by subtracting the current facing from the target facing and taking the remainder
 	-- with 4. This allows the calculation to wrap around if the target facing is
 	-- less than the current facing.
-	local rotation = (target_facing - current_facing) % 4
+	local rotation = (target_facing - current_position.facing) % 4
 
 	-- if rotation is 1, turn right once
 	if rotation == 1 then
@@ -71,10 +75,11 @@ end
 
 -- Exports
 return {
-	home_postition = home_postition,
-	home_facing = home_facing,
-	current_postion = current_postion,
-	current_facing = current_facing,
+	-- Variables
+	home_position = home_position,
+	current_position = current_position,
+
+	-- Functions
 	turnLeft = turnLeft,
 	turnRight = turnRight,
 	turnToFacing = turnToFacing,
