@@ -6,10 +6,10 @@ loadLib("coordinate")
 
 -- Register settings used in this module
 local setting_base = "vein_miner.movement."
-setting.define(setting_base .. "current_postion.coordinate.x", { default = 0, type = "number" })
-setting.define(setting_base .. "current_postion.coordinate.y", { default = 0, type = "number" })
-setting.define(setting_base .. "current_postion.coordinate.z", { default = 0, type = "number" })
-setting.define(setting_base .. "current_postion.facing", { default = 0, type = "number" })
+settings.define(setting_base .. "current_postion.coordinate.x", { default = 0, type = "number" })
+settings.define(setting_base .. "current_postion.coordinate.y", { default = 0, type = "number" })
+settings.define(setting_base .. "current_postion.coordinate.z", { default = 0, type = "number" })
+settings.define(setting_base .. "current_postion.facing", { default = 0, type = "number" })
 
 -- State variables
 local home_position = {
@@ -18,11 +18,11 @@ local home_position = {
 }
 local current_position = {
 	coordinate = coordinate:new(
-		setting.get(setting_base .. "current_postion.coordinate.x"),
-		setting.get(setting_base .. "current_postion.coordinate.y"),
-		setting.get(setting_base .. "current_postion.coordinate.z")
+		settings.get(setting_base .. "current_postion.coordinate.x"),
+		settings.get(setting_base .. "current_postion.coordinate.y"),
+		settings.get(setting_base .. "current_postion.coordinate.z")
 	),
-	facing = setting.get(setting_base .. "current_postion.facing"),
+	facing = settings.get(setting_base .. "current_postion.facing"),
 }
 
 --- Rotate the turtle left by a given count
@@ -86,10 +86,10 @@ local function turnToFacing(target_facing)
 end
 
 local function onTerminate()
-	setting.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
-	setting.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.y)
-	setting.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.z)
-	setting.set(setting_base .. "current_postion.facing", current_position.facing)
+	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
+	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.y)
+	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.z)
+	settings.set(setting_base .. "current_postion.facing", current_position.facing)
 end
 
 registerCleanup(onTerminate)
