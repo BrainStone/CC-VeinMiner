@@ -87,8 +87,8 @@ end
 
 local function onTerminate()
 	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.x)
-	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.y)
-	settings.set(setting_base .. "current_postion.coordinate.x", current_position.coordinate.z)
+	settings.set(setting_base .. "current_postion.coordinate.y", current_position.coordinate.y)
+	settings.set(setting_base .. "current_postion.coordinate.z", current_position.coordinate.z)
 	settings.set(setting_base .. "current_postion.facing", current_position.facing)
 end
 
