@@ -6,9 +6,7 @@ loadLib("coordinate")
 
 -- Register settings used in this module
 local setting_base = "vein_miner.movement."
-settings.define(setting_base .. "current_position.coordinate.x", { default = 0, type = "number" })
-settings.define(setting_base .. "current_position.coordinate.y", { default = 0, type = "number" })
-settings.define(setting_base .. "current_position.coordinate.z", { default = 0, type = "number" })
+coordinate:defineSetting(setting_base .. "current_position.coordinate")
 settings.define(setting_base .. "current_position.facing", { default = 0, type = "number" })
 
 -- State variables
@@ -17,11 +15,7 @@ local home_position = {
 	facing = 0,
 }
 local current_position = {
-	coordinate = coordinate:new(
-		settings.get(setting_base .. "current_position.coordinate.x"),
-		settings.get(setting_base .. "current_position.coordinate.y"),
-		settings.get(setting_base .. "current_position.coordinate.z")
-	),
+	coordinate = coordinate:fromSetting(setting_base .. "current_position.coordinate"),
 	facing = settings.get(setting_base .. "current_position.facing"),
 }
 
@@ -29,9 +23,7 @@ local current_position = {
 --- Saves the current position of the turtle.
 --- The position is saved as a set of x, y, z coordinates and a facing value.
 local function saveCurrentPosition()
-	settings.set(setting_base .. "current_position.coordinate.x", current_position.coordinate.x)
-	settings.set(setting_base .. "current_position.coordinate.y", current_position.coordinate.y)
-	settings.set(setting_base .. "current_position.coordinate.z", current_position.coordinate.z)
+	current_position.coordinate.toSetting(setting_base .. "current_position.coordinate")
 	settings.set(setting_base .. "current_position.facing", current_position.facing)
 end
 
