@@ -3,9 +3,9 @@
 ---
 
 --- Coordinate class
---- @field x x coordinate
---- @field y y coordinate
---- @field z z coordinate
+--- @field x number x coordinate
+--- @field y number y coordinate
+--- @field z number z coordinate
 Coordinate = {}
 Coordinate.__index = Coordinate
 

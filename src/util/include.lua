@@ -21,7 +21,7 @@ repo_dir = fs.getDir(src_dir)
 lib_dir = fs.combine(src_dir, "lib")
 
 --- Load a library
----- @param lib string the library to load
+--- @param lib string the library to load
 function loadLib(lib)
 	_G[lib] = require("lib." .. lib)
 end
