@@ -25,13 +25,13 @@ end
 -- Write startup file
 local h = fs.open("startup/50-vein_miner", "w")
 
-h.writeLine("local vein_miner_exec = " .. cli_quoted_path)
+h.writeLine("local vm_exec = " .. cli_quoted_path)
 h.writeLine("")
 h.writeLine("-- Update vein miner first")
-h.writeLine("if not shell.execute(vein_miner_exec, \"update\") then\n\terror()\nend")
+h.writeLine("if not shell.execute(vm_exec, \"update\") then\n\terror()\nend")
 h.writeLine("")
 h.writeLine("-- Run vein miner")
-h.writeLine("if not shell.execute(vein_miner_exec, \"run\") then\n\terror()\nend")
+h.writeLine("if not shell.execute(vm_exec, \"run\") then\n\terror()\nend")
 
 h.close()
 
