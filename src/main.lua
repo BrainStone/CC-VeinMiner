@@ -8,7 +8,7 @@ loadLib("movement")
 --- Returns a pair of coordinates that follow an ever expanding pattern
 --- @param n number The number to find the coordinates for
 --- @return table The coordinate for the given number
-function spiral_coordinates(n)
+function spiralCoordinates(n)
 	local level = math.floor((1 + math.sqrt(4 * n + 1)) / 4)
 	local level2 = level * 2
 	local level_offset = n - (level2 * level2 - level2)
@@ -34,27 +34,16 @@ function spiral_coordinates(n)
 	return coordinate:new(x, 0, z)
 end
 
-local place_slot
+function digHoleCoordinate(n)
+	return spiralCoordinates(n * 4)
+end
 
-for n = 0, 500 do
-	movement.moveToPosition(spiral_coordinates(n) + movement.start_position.coordinate)
+for n = 0, 1000 do
+	movement.moveToPosition(spiralCoordinates(n) + movement.start_position.coordinate)
 	turtle.digDown()
 
-	place_slot = 0
-
-	if n % 3 == 0 then
-		place_slot = place_slot + 3
-	end
 	if n % 4 == 0 then
-		place_slot = place_slot + 4
-	end
-	if n % 5 == 0 then
-		place_slot = place_slot + 5
-	end
-
-	if place_slot ~= 0 then
-		turtle.select(place_slot)
-		turtle.placeDown()
+		movement.moveDown(5)
 	end
 end
 
