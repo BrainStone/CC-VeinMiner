@@ -54,10 +54,10 @@ function turnLeft(count)
 	-- rotate the turtle left by the count specified
 	for _ = 1, count do
 		turtle.turnLeft()
-	end
 
-	-- update the current facing of the turtle
-	current_position.facing = (current_position.facing - count) % 4
+		-- update the current facing of the turtle
+		current_position.facing = (current_position.facing - 1) % 4
+	end
 end
 
 --- Rotate the turtle right by a given count
@@ -73,10 +73,10 @@ function turnRight(count)
 	-- rotate the turtle right by the count specified
 	for _ = 1, count do
 		turtle.turnRight()
-	end
 
-	-- update the current facing of the turtle
-	current_position.facing = (current_position.facing + count) % 4
+		-- update the current facing of the turtle
+		current_position.facing = (current_position.facing + 1) % 4
+	end
 end
 
 --- Move the turtle forward by a given count
@@ -94,17 +94,17 @@ function moveForward(count)
 		while not turtle.forward() do
 			turtle.dig()
 		end
-	end
 
-	-- update the current position of the turtle
-	if current_position.facing == 0 then
-		current_position.coordinate.x = current_position.coordinate.x + count
-	elseif current_position.facing == 1 then
-		current_position.coordinate.z = current_position.coordinate.z + count
-	elseif current_position.facing == 2 then
-		current_position.coordinate.x = current_position.coordinate.x - count
-	elseif current_position.facing == 3 then
-		current_position.coordinate.z = current_position.coordinate.z - count
+		-- update the current position of the turtle
+		if current_position.facing == 0 then
+			current_position.coordinate.x = current_position.coordinate.x + 1
+		elseif current_position.facing == 1 then
+			current_position.coordinate.z = current_position.coordinate.z + 1
+		elseif current_position.facing == 2 then
+			current_position.coordinate.x = current_position.coordinate.x - 1
+		elseif current_position.facing == 3 then
+			current_position.coordinate.z = current_position.coordinate.z - 1
+		end
 	end
 end
 
@@ -125,17 +125,17 @@ function moveBackward(count)
 			turtle.dig()
 			turnRight(2)
 		end
-	end
 
-	-- update the current position of the turtle
-	if current_position.facing == 0 then
-		current_position.coordinate.x = current_position.coordinate.x - count
-	elseif current_position.facing == 1 then
-		current_position.coordinate.z = current_position.coordinate.z - count
-	elseif current_position.facing == 2 then
-		current_position.coordinate.z = current_position.coordinate.x + count
-	elseif current_position.facing == 3 then
-		current_position.coordinate.z = current_position.coordinate.z + count
+		-- update the current position of the turtle
+		if current_position.facing == 0 then
+			current_position.coordinate.x = current_position.coordinate.x - 1
+		elseif current_position.facing == 1 then
+			current_position.coordinate.z = current_position.coordinate.z - 1
+		elseif current_position.facing == 2 then
+			current_position.coordinate.z = current_position.coordinate.x + 1
+		elseif current_position.facing == 3 then
+			current_position.coordinate.z = current_position.coordinate.z + 1
+		end
 	end
 end
 
@@ -154,10 +154,10 @@ function moveUpward(count)
 		while not turtle.up() do
 			turtle.digUp()
 		end
-	end
 
-	-- update the current position of the turtle
-	current_position.coordinate.y = current_position.coordinate.y + count
+		-- update the current position of the turtle
+		current_position.coordinate.y = current_position.coordinate.y + 1
+	end
 end
 
 --- Move the turtle downward by a given count
@@ -175,10 +175,10 @@ function moveDownward(count)
 		while not turtle.down() do
 			turtle.digDown()
 		end
-	end
 
-	-- update the current position of the turtle
-	current_position.coordinate.y = current_position.coordinate.y - count
+		-- update the current position of the turtle
+		current_position.coordinate.y = current_position.coordinate.y - 1
+	end
 end
 
 -- Smart movement functions
