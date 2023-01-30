@@ -38,7 +38,7 @@ function digHoleCoordinate(n)
 	return spiralCoordinates(n * 4)
 end
 
-for n = 0, 1000 do
+for n = 0, 100 do
 	movement.moveToPosition(spiralCoordinates(n) + movement.start_position.coordinate)
 	turtle.digDown()
 
