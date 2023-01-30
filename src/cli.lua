@@ -97,7 +97,7 @@ settings.save(settings_file)
 
 -- Rethrow errors. We're catching them in the first place so we can guarantee that cleanup is called
 if not success then
-	local h = fs.open("vein_miner.traceback", "w")
+	local h = fs.open("traceback_vein_miner.txt", "w")
 	h.write(traceback)
 	h.close()
 
