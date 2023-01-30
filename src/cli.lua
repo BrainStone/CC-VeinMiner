@@ -97,4 +97,7 @@ if not success then
 
 	printError("There was an error while running the program! It was caught and the state was saved.\nError:")
 	printError(error_message)
+
+	-- Let the shell know we had an error
+	error()
 end
