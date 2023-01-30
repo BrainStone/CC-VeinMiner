@@ -95,5 +95,6 @@ if not success then
 	h.write(traceback)
 	h.close()
 
+	printError("There was an error while running the program! It was caught and the state was saved.\nError:")
 	printError(error_message)
 end
