@@ -26,10 +26,10 @@ end
 local h = fs.open("startup/50-vein_miner", "w")
 
 h.writeLine("-- Update vein miner first")
-h.writeLine("if not shell.execute(" .. cli_quoted_path .. ", \"update\") then error() end")
+h.writeLine("if not shell.execute(" .. cli_quoted_path .. ", \"update\") then\n\terror()\nend")
 h.writeLine("")
 h.writeLine("-- Run vein miner")
-h.writeLine("if not shell.execute(" .. cli_quoted_path .. ", \"run\") then error() end")
+h.writeLine("if not shell.execute(" .. cli_quoted_path .. ", \"run\") then\n\terror()\nend")
 
 h.close()
 
