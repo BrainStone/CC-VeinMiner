@@ -33,12 +33,31 @@ end
 
 registerCleanup(saveCurrentPosition)
 
+-- Helper functions
+local advanceCurrentPositionInFacing
 -- Simple movement functions
 local turnLeft, turnRight, moveForward, moveBackward, moveUpward, moveDownward
 -- Smart movement functions
 local moveInX, moveInY, moveInZ
 -- Complex movement functions
 local turnToFacing, moveToRelative, moveToPosition, moveHome
+
+-- Helper functions
+--- Advances the current position of the turtle based on the facing
+--- @param n number The distance to advance the turtle in the direction it is facing
+function advanceCurrentPositionInFacing(n)
+	-- update the current position of the turtle based on the facing
+	if current_position.facing == 0 then
+		current_position.coordinate.x = current_position.coordinate.x + n
+	elseif current_position.facing == 1 then
+		current_position.coordinate.z = current_position.coordinate.z + n
+	elseif current_position.facing == 2 then
+		current_position.coordinate.x = current_position.coordinate.x - n
+	elseif current_position.facing == 3 then
+		current_position.coordinate.z = current_position.coordinate.z - n
+	end
+end
+
 
 -- Simple movement functions
 --- Rotate the turtle left by a given count
@@ -53,10 +72,10 @@ function turnLeft(count)
 
 	-- rotate the turtle left by the count specified
 	for _ = 1, count do
-		turtle.turnLeft()
-
 		-- update the current facing of the turtle
 		current_position.facing = (current_position.facing - 1) % 4
+
+		turtle.turnLeft()
 	end
 end
 
@@ -72,10 +91,10 @@ function turnRight(count)
 
 	-- rotate the turtle right by the count specified
 	for _ = 1, count do
-		turtle.turnRight()
-
 		-- update the current facing of the turtle
 		current_position.facing = (current_position.facing + 1) % 4
+
+		turtle.turnRight()
 	end
 end
 
@@ -91,19 +110,18 @@ function moveForward(count)
 
 	-- move the turtle forward by the count specified
 	for _ = 1, count do
-		while not turtle.forward() do
-			turtle.dig()
-		end
+		while true do
+			-- update the current position of the turtle
+			advanceCurrentPositionInFacing(1)
 
-		-- update the current position of the turtle
-		if current_position.facing == 0 then
-			current_position.coordinate.x = current_position.coordinate.x + 1
-		elseif current_position.facing == 1 then
-			current_position.coordinate.z = current_position.coordinate.z + 1
-		elseif current_position.facing == 2 then
-			current_position.coordinate.x = current_position.coordinate.x - 1
-		elseif current_position.facing == 3 then
-			current_position.coordinate.z = current_position.coordinate.z - 1
+			if turtle.forward() then
+				break
+			end
+
+			-- undo the change if it couldn't move
+			advanceCurrentPositionInFacing(-1)
+
+			turtle.dig()
 		end
 	end
 end
@@ -120,21 +138,21 @@ function moveBackward(count)
 
 	-- move the turtle backward by the count specified
 	for _ = 1, count do
-		while not turtle.back() do
+		while true do
+			-- update the current position of the turtle
+			advanceCurrentPositionInFacing(-1)
+
+			if turtle.back() then
+				break
+			end
+
+			-- undo the change if it couldn't move
+			advanceCurrentPositionInFacing(1)
+
+			-- Dig backwards
 			turnRight(2)
 			turtle.dig()
 			turnRight(2)
-		end
-
-		-- update the current position of the turtle
-		if current_position.facing == 0 then
-			current_position.coordinate.x = current_position.coordinate.x - 1
-		elseif current_position.facing == 1 then
-			current_position.coordinate.z = current_position.coordinate.z - 1
-		elseif current_position.facing == 2 then
-			current_position.coordinate.z = current_position.coordinate.x + 1
-		elseif current_position.facing == 3 then
-			current_position.coordinate.z = current_position.coordinate.z + 1
 		end
 	end
 end
@@ -151,12 +169,19 @@ function moveUpward(count)
 
 	-- move the turtle upward by the count specified
 	for _ = 1, count do
-		while not turtle.up() do
+		while true do
+			-- update the current position of the turtle
+			current_position.coordinate.y = current_position.coordinate.y + 1
+
+			if turtle.up() then
+				break
+			end
+
+			-- undo the change if it couldn't move
+			current_position.coordinate.y = current_position.coordinate.y - 1
+
 			turtle.digUp()
 		end
-
-		-- update the current position of the turtle
-		current_position.coordinate.y = current_position.coordinate.y + 1
 	end
 end
 
@@ -172,12 +197,19 @@ function moveDownward(count)
 
 	-- move the turtle downward by the count specified
 	for _ = 1, count do
-		while not turtle.down() do
+		while true do
+			-- update the current position of the turtle
+			current_position.coordinate.y = current_position.coordinate.y - 1
+
+			if turtle.down() then
+				break
+			end
+
+			-- undo the change if it couldn't move
+			current_position.coordinate.y = current_position.coordinate.y + 1
+
 			turtle.digDown()
 		end
-
-		-- update the current position of the turtle
-		current_position.coordinate.y = current_position.coordinate.y - 1
 	end
 end
 
