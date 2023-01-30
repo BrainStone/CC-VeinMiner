@@ -43,7 +43,7 @@ for n = 0, 1000 do
 	turtle.digDown()
 
 	if n % 4 == 0 then
-		movement.moveDown(5)
+		movement.moveDownward(5)
 	end
 end
 
