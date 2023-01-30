@@ -19,12 +19,15 @@ local subcommands = {
 	__tabcomplete = {
 		usage = "vein_miner __tabcomplete"
 	},
+	run = {
+		usage = "vein_miner run"
+	},
+	home = {
+		usage = "vein_miner home"
+	},
 	update = {
 		usage = "vein_miner update"
 	},
-	run = {
-		usage = "vein_miner run"
-	}
 }
 
 local action = subcommands[selectedAction]
@@ -72,13 +75,16 @@ if action == subcommands.__tabcomplete then
 
 	-- Set tabcomplete for both files
 	shell.setCompletionFunction(cur_path, complete)
+elseif action == subcommands.run then
+	-- Just call the main
+	success, traceback, error_message = runFile("main.lua")
+elseif action == subcommands.home then
+	-- Just call the main
+	success, traceback, error_message = runFile("home.lua")
 elseif action == subcommands.update then
 	-- Update logic
 	-- Expects the 3rd parameter to be the path
 	success, traceback, error_message = runFile("update.lua", "", "", repo_dir)
-elseif action == subcommands.run then
-	-- Just call the main
-	success, traceback, error_message = runFile("main.lua")
 end
 
 -- Execute cleanup
