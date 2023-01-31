@@ -4,6 +4,7 @@
 
 loadLib("coordinate")
 loadLib("movement")
+loadLib("block_list")
 
 -- Register settings used in this module
 local setting_base = "vein_miner.vein_miner."
@@ -45,9 +46,17 @@ end
 
 registerCleanup(saveVeinMinerData)
 
+-- Register lists
+block_list.registerList("cant_break", cant_break_list)
+block_list.registerList("trash", trash_list)
+block_list.registerList("valuable", valuable_list)
+
 -- Exports
 return {
 	-- Variables
+	cant_break_list = cant_break_list,
+	trash_list = trash_list,
+	valuable_list = valuable_list
 
 	-- Functions
 }

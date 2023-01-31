@@ -5,6 +5,7 @@
 loadLib("coordinate")
 loadLib("movement")
 loadLib("vein_miner")
+loadLib("block_list")
 
 --- Returns a pair of coordinates that follow an ever expanding pattern
 --- @param n number The number to find the coordinates for
@@ -39,13 +40,10 @@ function digHoleCoordinate(n)
 	return spiralCoordinates(n * 4)
 end
 
-for n = 0, 100 do
-	movement.moveToPosition(spiralCoordinates(n) + movement.start_position.coordinate)
-	turtle.digDown()
+while true do
+	if turtle.detect() then
+		print(block_list.determineBlock())
 
-	if n % 4 == 0 then
-		movement.moveDownward(5)
+		turtle.dig()
 	end
 end
-
-movement.moveHome()
