@@ -4,6 +4,7 @@
 
 loadLib("coordinate")
 loadLib("movement")
+loadLib("vein_miner")
 
 --- Returns a pair of coordinates that follow an ever expanding pattern
 --- @param n number The number to find the coordinates for
