@@ -44,8 +44,8 @@ local function determineList(inspect_result)
 	local list = default_list
 
 	-- Loop through registered_lists to find the list to which the block belongs
-	for name, tags in ipairs(registered_lists) do
-		for _, tag in ipairs(tags) do
+	for name, tags in pairs(registered_lists) do
+		for _, tag in pairs(tags) do
 			if inspect_result.tags[tag] then
 				list = name
 
