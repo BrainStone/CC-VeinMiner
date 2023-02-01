@@ -2,10 +2,10 @@
 --- Main script of the vein miner
 ---
 
-loadLib("coordinate")
-loadLib("movement")
-loadLib("vein_miner")
-loadLib("block_list")
+local coordinate = require("lib.coordinate")
+local movement = require("lib.movement")
+local vein_miner = require("lib.vein_miner")
+local block_list = require("lib.block_list")
 
 --- Returns a pair of coordinates that follow an ever expanding pattern
 --- @param n number The number to find the coordinates for

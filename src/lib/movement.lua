@@ -2,7 +2,7 @@
 --- Library to make moving around easier
 ---
 
-loadLib("coordinate")
+local coordinate = require("lib.coordinate")
 
 -- Register settings used in this module
 local setting_base = "vein_miner.movement."

@@ -20,12 +20,6 @@ src_dir = fs.getDir(cli_path)
 repo_dir = fs.getDir(src_dir)
 lib_dir = fs.combine(src_dir, "lib")
 
---- Load a library
---- @param lib string the library to load
-function loadLib(lib)
-	_G[lib] = require("lib." .. lib)
-end
-
 --- Runs the given file with the given arguments and returns the results.
 --- @param file string The name of the file to run
 --- @param ... any Any additional arguments to pass to the file when running it

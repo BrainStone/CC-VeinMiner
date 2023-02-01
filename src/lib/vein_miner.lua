@@ -2,9 +2,9 @@
 --- Library to help mining veins
 ---
 
-loadLib("coordinate")
-loadLib("movement")
-loadLib("block_list")
+local coordinate = require("lib.coordinate")
+local movement = require("lib.movement")
+local block_list = require("lib.block_list")
 
 -- Register settings used in this module
 local setting_base = "vein_miner.vein_miner."
