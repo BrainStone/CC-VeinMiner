@@ -108,7 +108,6 @@ local function determineBlockDown()
 	end
 end
 
-
 -- Exports
 return {
 	-- Variables

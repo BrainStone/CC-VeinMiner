@@ -8,7 +8,7 @@ local debug_file_name = "debug_vein_miner.txt"
 fs.open(debug_file_name, "w").close()
 
 -- Functions
-local function inspectObject(object, ...)
+local function inspectObject(...)
     -- Open file for appending the string reprentation of
     local h = fs.open(debug_file_name, "a")
 
