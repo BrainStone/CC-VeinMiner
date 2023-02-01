@@ -67,7 +67,7 @@ local function determineList(inspect_result)
 end
 
 --- Determine the block in front of the turtle
---- @return string the name of the list the block belongs to, or nil if no block is found
+--- @return string|nil the name of the list the block belongs to, or nil if no block is found
 local function determineBlock()
 	-- Inspect the block in front of the turtle
 	local found, data = turtle.inspect()
@@ -81,7 +81,7 @@ local function determineBlock()
 end
 
 --- Determine the block above the turtle
---- @return string the name of the list the block belongs to, or nil if no block is found
+--- @return string|nil the name of the list the block belongs to, or nil if no block is found
 local function determineBlockUp()
 	-- Inspect the block above the turtle
 	local found, data = turtle.inspectUp()
@@ -95,7 +95,7 @@ local function determineBlockUp()
 end
 
 --- Determine the block below the turtle
---- @return string the name of the list the block belongs to, or nil if no block is found
+--- @return string|nil the name of the list the block belongs to, or nil if no block is found
 local function determineBlockDown()
 	-- Inspect the block below the turtle
 	local found, data = turtle.inspectDown()
